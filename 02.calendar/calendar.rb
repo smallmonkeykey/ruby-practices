@@ -1,10 +1,20 @@
 require 'date'
+require 'optparse'
+opt = OptionParser.new
+
+opt.on('-m') {|v| p v }
+opt.on('-y') {|v| p v }
+
+opt.parse!(ARGV)
+
+month = ARGV[0].to_i
+year = ARGV[1].to_i
 
 # 今月の最初
-date_first = Date.new(2023, 5, 1)
+date_first = Date.new(year, month, 1)
 
 # 末日
-date_last = Date.new(2023, 5, -1)
+date_last = Date.new(year, month, -1)
 
 puts "      #{date_first.month}月 #{date_first.year}"
 
