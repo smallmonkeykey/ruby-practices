@@ -37,3 +37,6 @@ number_of_days.times do
     end
     date_first += 1
 end
+
+# %を表示させないために追加
+puts ""
