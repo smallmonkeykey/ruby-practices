@@ -2,8 +2,8 @@ require 'date'
 require 'optparse'
 opt = OptionParser.new
 
-opt.on('-m') {|v| p v }
-opt.on('-y') {|v| p v }
+opt.on('-m')
+opt.on('-y')
 
 opt.parse!(ARGV)
 
