@@ -1,14 +1,10 @@
 require 'date'
 require 'optparse'
-opt = OptionParser.new
 
-opt.on('-m')
-opt.on('-y')
+params = ARGV.getopts("y:m:")
 
-opt.parse!(ARGV)
-
-month = ARGV[0].to_i
-year = ARGV[1].to_i
+year = params["y"].to_i
+month = params["m"].to_i
 
 # 今月の最初
 date_first = Date.new(year, month, 1)
