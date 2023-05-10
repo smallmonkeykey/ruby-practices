@@ -45,6 +45,7 @@ point = 0
 frames.each.with_index do |frame,i|
   point += frame.sum
   if frame[0] == 10
+    i += 1
     if frames[i].nil? == false
       point += frames[i].sum
     end
