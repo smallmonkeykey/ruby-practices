@@ -13,7 +13,7 @@ scores.each do |s|
   end
 end
 
-binding.break
+
 
 frames = []
 shots.each_slice(2) do |s|
@@ -40,3 +40,23 @@ frames.each do |frame|
 end
 puts point
 =end
+
+point = 0
+frames.each.with_index do |frame,i|
+  point += frame.sum
+  if frame[0] == 10
+    if frames[i].nil? == false
+      point += frames[i].sum
+    end
+  elsif frame.sum == 10
+    i += 1
+    next_frame = frames[i]
+    if frames[i].nil? == false
+      point += next_frame[0]
+    end
+  end
+end
+puts point
+
+
+# ruby bowling.rb X,5,4,X,2,3,6,3
