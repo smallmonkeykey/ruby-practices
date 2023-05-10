@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'debug'
+
 score = ARGV[0]
 scores = score.split(',')
 shots = []
@@ -11,11 +13,21 @@ scores.each do |s|
   end
 end
 
+binding.break
+
 frames = []
 shots.each_slice(2) do |s|
-  frames << s
+  if s[0] == 10
+    s.delete(0)
+    frames << s
+  else
+    frames << s
+  end
 end
 
+p frames
+
+=begin
 point = 0
 frames.each do |frame|
   if frame[0] == 10 # strike
@@ -27,3 +39,4 @@ frames.each do |frame|
   end
 end
 puts point
+=end
