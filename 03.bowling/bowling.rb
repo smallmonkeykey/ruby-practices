@@ -27,20 +27,25 @@ end
 
 p frames
 
-=begin
 point = 0
-frames.each do |frame|
-  if frame[0] == 10 # strike
-    point += 30
-  elsif frame.sum == 10 # spare
-    point += frame[0] + 10
-  else
-    point += frame.sum
+frames.each.with_index do |frame,i|
+  p point
+  point += frame.sum
+  
+  if frame[0] == 10 && i < 9
+    if frames[i+1] == [10] && frames[i+2] == [10]
+      point += 20
+    end
+    
   end
 end
-puts point
-=end
 
+p point
+
+
+
+
+=begin
 point = 0
 frames.each.with_index do |frame,i|
   point += frame.sum
@@ -49,7 +54,8 @@ frames.each.with_index do |frame,i|
     if frames[i].nil? == false
       point += frames[i].sum
     end
-  elsif frame.sum == 10
+
+  if frame.sum == 10
     i += 1
     next_frame = frames[i]
     if frames[i].nil? == false
@@ -57,7 +63,9 @@ frames.each.with_index do |frame,i|
     end
   end
 end
+=end
+
 puts point
 
 
-# ruby bowling.rb X,5,4,X,2,3,6,3
+# ruby bowling.rb X,X,X,X
