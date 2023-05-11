@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'debug'
-
 score = ARGV[0]
 scores = score.split(',')
 shots = []
@@ -13,8 +11,6 @@ scores.each do |s|
   end
 end
 
-
-
 frames = []
 shots.each_slice(2) do |s|
   if s[0] == 10
@@ -25,12 +21,10 @@ shots.each_slice(2) do |s|
   end
 end
 
-p frames
-#binding.break
-
 point = 0
+
 frames.each.with_index do |frame,i|
-  p point
+ p point
   point += frame.sum
   
   if frame[0] == 10 && i < 9
@@ -44,34 +38,11 @@ frames.each.with_index do |frame,i|
     end
   end
 
-end
-
-p point
-
-
-
-
-=begin
-point = 0
-frames.each.with_index do |frame,i|
-  point += frame.sum
-  if frame[0] == 10
-    i += 1
-    if frames[i].nil? == false
-      point += frames[i].sum
-    end
-
-  if frame.sum == 10
-    i += 1
-    next_frame = frames[i]
-    if frames[i].nil? == false
-      point += next_frame[0]
-    end
+  if frame.sum == 10 && frame.size == 2 && i < 9
+    next_frame = frames[i+1]
+    point += next_frame[0]
   end
+
 end
-=end
 
 puts point
-
-
-# ruby bowling.rb X,X,X,X
