@@ -11,13 +11,8 @@ a = Date.today
 this_year = a.year
 this_month = a.month
 
-case
-when year && month == 0
-  year = this_year
-    month = this_month
-when year == 0 && month != 0
-  year = this_year
-end
+year = this_year if year.zero?
+month = this_month if month.zero?
 
 # 今月の最初
 date_first = Date.new(year, month, 1)
