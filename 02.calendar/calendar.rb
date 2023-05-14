@@ -22,15 +22,8 @@ date_last = Date.new(year, month, -1)
 
 puts "      #{date_first.month}月 #{date_first.year}"
 
-# 一ヶ月間表示する
-weeks = ["日","月","火","水","木","金","土"]
-weeks.each do |week|
-  if week == "土"
-    print week + "\n"
-  else
-    print week + " "
-  end
-end
+# 曜日の行を作成する
+puts ["日","月","火","水","木","金","土"].join(" ")
 
 # 空白で曜日を合わせる
 print "   " * date_first.wday
