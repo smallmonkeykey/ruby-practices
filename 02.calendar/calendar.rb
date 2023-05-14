@@ -35,10 +35,8 @@ end
 # 空白で曜日を合わせる
 print "   " * date_first.wday
 
-number_of_days = date_last.day # 月の日数を計算する
-
-number_of_days.times do 
-  if (1..9) === date_first.day
+(date_first..date_last).each do |date|
+    if (1..9) === date_first.day
     print " "
   end
   if date_first.saturday?
@@ -48,6 +46,8 @@ number_of_days.times do
   end
   date_first += 1
 end
+
+
 
 # %を表示させないために追加
 puts ""
