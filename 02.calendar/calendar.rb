@@ -33,10 +33,7 @@ weeks.each do |week|
 end
 
 # 空白で曜日を合わせる
-brank = "   "
-space = ""
-space += brank * date_first.wday
-print space
+print "   " * date_first.wday
 
 number_of_days = date_last.day # 月の日数を計算する
 
