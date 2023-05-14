@@ -29,18 +29,13 @@ puts ["日","月","火","水","木","金","土"].join(" ")
 print "   " * date_first.wday
 
 (date_first..date_last).each do |date|
-    if (1..9) === date_first.day
-    print " "
-  end
-  if date_first.saturday?
-    print  "#{date_first.day}  \n"
+  day = date.day.to_s.rjust(2)
+  if date.saturday?
+    print  "#{day}  \n"
   else
-    print  "#{date_first.day} "
+    print  "#{day} "
   end
-  date_first += 1
 end
-
-
 
 # %を表示させないために追加
 puts ""
