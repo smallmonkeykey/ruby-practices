@@ -40,9 +40,9 @@ print "   " * date_first.wday
     print " "
   end
   if date_first.saturday?
-    print  date_first.day.to_s + " " +  "\n"
+    print  "#{date_first.day}  \n"
   else
-    print  date_first.day.to_s + " "
+    print  "#{date_first.day} "
   end
   date_first += 1
 end
