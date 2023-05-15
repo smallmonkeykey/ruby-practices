@@ -8,9 +8,9 @@ params = ARGV.getopts('y:m:')
 year = params['y'].to_i
 month = params['m'].to_i
 
-a = Date.today
-this_year = a.year
-this_month = a.month
+today = Date.today
+this_year = today.year
+this_month = today.month
 
 year = this_year if year.zero?
 month = this_month if month.zero?
