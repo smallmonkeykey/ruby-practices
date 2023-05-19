@@ -29,8 +29,7 @@ frames.each.with_index do |frame, i|
   end
 
   if frame.sum == 10 && frame.size == 2 && i < 9
-    next_frame = frames[i + 1]
-    point += next_frame[0]
+    point += frames[i + 1][0]
   end
 end
 
