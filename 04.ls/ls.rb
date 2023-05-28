@@ -10,7 +10,7 @@ Dir.open('.').each_child {|f|
 
 pwd_dir.sort.each_with_index do |n, idx|
   idx += 1
-  print n.ljust(30)
+  print n.ljust(24)
   print "\n"  if idx % 3 == 0
  end
 
