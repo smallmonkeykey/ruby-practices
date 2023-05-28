@@ -3,10 +3,9 @@ ALL_PINS = 10
 
 score = ARGV[0]
 scores = score.split(',')
-shots = []
-scores.each do |s|
-  s == 'X' ? shots << ALL_PINS << 0 : shots << s.to_i
-end
+shots = scores.map do |s|
+  s == 'X' ? [ALL_PINS, 0] : s.to_i
+end.flatten
 
 frames = []
 shots.each_slice(2) do |s|
