@@ -1,17 +1,31 @@
-pwd_dir = []
+pwd_dirs = []
 
-Dir.open('.').each_child {|f|
-  if File.ftype(f) == "directory"
-    pwd_dir << "#{f}/"
+Dir.open('.').each_child {|file|
+  if File.ftype(file) == "directory"
+    pwd_dirs << "#{file}/"
   else
-  pwd_dir << f 
+    pwd_dirs << file
   end
 }
 
-pwd_dir.sort.each_with_index do |n, idx|
-  idx += 1
-  print n.ljust(24)
-  print "\n"  if idx % 3 == 0
- end
+new_pwd_dirs = pwd_dirs.sort
 
-puts ""
+remainder = new_pwd_dirs.size.modulo(3)
+space = 3 - remainder
+
+quotient = new_pwd_dirs.size.div(3)
+columns = quotient + 1
+
+arry = []
+new_pwd_dirs.each_slice(columns).with_index(1) do |dir, idx|
+  arry << dir
+  if idx == quotient 
+    space.times {arry.last.push("99")}
+  end
+end
+
+reversed_array = arry.transpose
+
+reversed_array.each do |line|
+  puts line.map{|file| file.ljust(24)}.join()
+end
