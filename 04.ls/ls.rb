@@ -8,16 +8,16 @@ Dir.open('.').each_child {|file|
   end
 }
 
-new_pwd_dirs = pwd_dirs.sort
+sort_pwd_dirs = pwd_dirs.sort
 
-remainder = new_pwd_dirs.size.modulo(3)
+remainder = sort_pwd_dirs.size.modulo(3)
 space = 3 - remainder
 
-quotient = new_pwd_dirs.size.div(3)
+quotient = sort_pwd_dirs.size.div(3)
 columns = quotient + 1
 
 arry = []
-new_pwd_dirs.each_slice(columns).with_index(1) do |dir, idx|
+sort_pwd_dirs.each_slice(columns).with_index(1) do |dir, idx|
   arry << dir
   if idx == quotient 
     space.times {arry.last.push("99")}
