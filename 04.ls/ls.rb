@@ -1,17 +1,20 @@
-pwd_dirs = []
+def get_dirs
+  pwd_dirs = []
+  Dir.open('.').each_child {|file|
+    if File.ftype(file) == "directory"
+      pwd_dirs << "#{file}/"
+    else
+      pwd_dirs << file
+    end
+  }
+  pwd_dirs
+end
 
-Dir.open('.').each_child {|file|
-  if File.ftype(file) == "directory"
-    pwd_dirs << "#{file}/"
-  else
-    pwd_dirs << file
-  end
-}
+sort_pwd_dirs = get_dirs.sort
 
-sort_pwd_dirs = pwd_dirs.sort
-
-remainder = sort_pwd_dirs.size.modulo(3)
-space = 3 - remainder
+def fill_up(sort_pwd_dirs, number)
+  number - (sort_pwd_dirs.size.modulo(number))
+end
 
 quotient = sort_pwd_dirs.size.div(3)
 columns = quotient + 1
@@ -20,7 +23,7 @@ arry = []
 sort_pwd_dirs.each_slice(columns).with_index(1) do |dir, idx|
   arry << dir
   if idx == quotient 
-    space.times {arry.last.push("99")}
+    fill_up(sort_pwd_dirs, 3).times {arry.last.push("")}
   end
 end
 
