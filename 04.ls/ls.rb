@@ -14,21 +14,27 @@ end
 
 sort_pwd_dirs = take_dirs.sort
 
-def fill_up(sort_pwd_dirs, number)
-  number - sort_pwd_dirs.size.modulo(number)
-end
+line = 3
+NUMBER = 1
 
-quotient = sort_pwd_dirs.size.div(3)
-columns = quotient + 1
+quotient = sort_pwd_dirs.size / line
+colum = sort_pwd_dirs.size / (quotient + NUMBER)
+remainder = sort_pwd_dirs.size % (quotient + NUMBER)
 
 arry = []
-sort_pwd_dirs.each_slice(columns).with_index(1) do |dir, idx|
-  arry << dir
-  fill_up(sort_pwd_dirs, 3).times { arry.last.push('') } if idx == quotient
+
+if remainder == 0
+    arry = sort_pwd_dirs.each_slice(colum).map {|dir| dir }
+else
+    sort_pwd_dirs.each_slice(quotient + NUMBER).with_index(1) do |dir, idx|
+        idx += 1
+        arry << dir
+        if arry[idex = colum]
+            ((quotient + NUMBER) - remainder).times {arry.last.push(" ")}
+        end
+    end
 end
 
-reversed_array = arry.transpose
-
-reversed_array.each do |line|
-  puts line.map { |file| file.ljust(24) }.join
+arry.transpose.each do |line|
+  puts line.map{|file| file.ljust(24)}.join()
 end
