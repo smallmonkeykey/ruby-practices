@@ -3,6 +3,9 @@
 def take_dirs
   pwd_dirs = []
   Dir.open('.').each_child do |file|
+    if file == ".gitignore" || file == ".git" || file == ".rubocop.yml"
+     next
+    end
     pwd_dirs << if File.ftype(file) == 'directory'
                   "#{file}/"
                 else
@@ -11,6 +14,7 @@ def take_dirs
   end
   pwd_dirs
 end
+
 
 sort_pwd_dirs = take_dirs.sort
 
