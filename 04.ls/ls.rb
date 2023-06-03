@@ -16,37 +16,27 @@ def take_dirs
 end
 
 NUMBER = 1
+LINE = 5
 
 def make_arry
 sort_pwd_dirs = take_dirs.sort
 
-line = 2
-
-quotient = sort_pwd_dirs.size / line
+quotient = sort_pwd_dirs.size / LINE
 colum = sort_pwd_dirs.size / (quotient + NUMBER)
 remainder = sort_pwd_dirs.size % (quotient + NUMBER)
 
-p sort_pwd_dirs.size
-p quotient
-p colum
-
 arry = []
 
-if sort_pwd_dirs.size % line == 0
-    arry = sort_pwd_dirs.each_slice(quotient).map {|dir| dir }
-else
-    sort_pwd_dirs.each_slice(quotient + NUMBER).with_index(1) do |dir, idx|
-        idx += 1
-        arry << dir
-        if arry[idex = colum]
-            ((quotient + NUMBER) - remainder).times {arry.last.push(" ")}
-        end
+  if (sort_pwd_dirs.size % LINE).zero?
+    arry = sort_pwd_dirs.each_slice(quotient).map { |dir| dir }
+  else
+    sort_pwd_dirs.each_slice(quotient + NUMBER) do |dir|
+      arry << dir
+      ((quotient + NUMBER) - remainder).times { arry.last.push(' ') } if arry[colum]
     end
-  arry
+    arry
+  end
 end
-end
-
-p make_arry
 
 make_arry.transpose.each do |line|
   puts line.map{|file| file.ljust(24)}.join()
