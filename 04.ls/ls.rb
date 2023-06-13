@@ -1,42 +1,27 @@
 # frozen_string_literal: true
 
-def take_dirs
-  pwd_dirs = []
-  Dir.open('.').each_child do |file|
-    next if ['.gitignore', '.git', '.rubocop.yml'].include?(file)
+pwd_dirs_files = Dir.glob("*") 
 
-    pwd_dirs << if File.ftype(file) == 'directory'
-                  "#{file}/"
-                else
-                  file
-                end
-  end
-  pwd_dirs
+ROWS = 3
+
+arry = []
+
+arry = pwd_dirs_files.each_slice((pwd_dirs_files.size.to_f / ROWS).ceil).to_a
+
+def add_space(arry)
+  (arry[0].size - arry.last.size).times { arry.last.push(' ') } 
 end
 
-NUMBER = 1
-LINE = 5
+add_space(arry)
 
-def make_arry
-  sort_pwd_dirs = take_dirs.sort
+arry_size = pwd_dirs_files.map do |file|
+  file.size               
+end
 
-  quotient = sort_pwd_dirs.size / LINE
-  colum = sort_pwd_dirs.size / (quotient + NUMBER)
-  remainder = sort_pwd_dirs.size % (quotient + NUMBER)
-
-  arry = []
-
-  if (sort_pwd_dirs.size % LINE).zero?
-    arry = sort_pwd_dirs.each_slice(quotient).map { |dir| dir }
-  else
-    sort_pwd_dirs.each_slice(quotient + NUMBER) do |dir|
-      arry << dir
-      ((quotient + NUMBER) - remainder).times { arry.last.push(' ') } if arry[colum]
-    end
-    arry
+def transpose_arry(arry, arry_size)
+  arry.transpose.each do |line|
+    puts line.map { |file| file.ljust(arry_size.max + 1) }.join
   end
 end
 
-make_arry.transpose.each do |line|
-  puts line.map { |file| file.ljust(24) }.join
-end
+transpose_arry(arry, arry_size)
