@@ -6,11 +6,11 @@ ROWS = 3
 
 divided_arry = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
 
-def add_space(divided_arry)
+def fill_blank_to_matrix_shape(divided_arry)
   (divided_arry[0].size - divided_arry.last.size).times { divided_arry.last.push(' ') }
 end
 
-add_space(divided_arry)
+fill_blank_to_matrix_shape(divided_arry)
 
 divided_arry_size = filenames.map(&:size)
 
