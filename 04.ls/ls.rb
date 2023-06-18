@@ -12,12 +12,12 @@ end
 
 fill_blank_to_matrix_shape(divided_arry)
 
-divided_arry_size = filenames.map(&:size)
+arry_max_size = filenames.map(&:size).max
 
-def transpose_divided_arry(divided_arry, divided_arry_size)
+def transpose_divided_arry(divided_arry, arry_max_size)
   divided_arry.transpose.each do |line|
-    puts line.map { |file| file.ljust(divided_arry_size.max + 1) }.join
+    puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-transpose_divided_arry(divided_arry, divided_arry_size)
+transpose_divided_arry(divided_arry, arry_max_size)
