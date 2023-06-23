@@ -4,20 +4,20 @@ filenames = Dir.glob('*')
 
 ROWS = 3
 
-divided_arry = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
+sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
 
-def fill_blank_to_matrix_shape(divided_arry)
-  (divided_arry[0].size - divided_arry.last.size).times { divided_arry.last.push(' ') }
+def fill_blank_to_matrix_shape(sliced_filenames)
+  (sliced_filenames[0].size - sliced_filenames.last.size).times { sliced_filenames.last.push(' ') }
 end
 
-fill_blank_to_matrix_shape(divided_arry)
+fill_blank_to_matrix_shape(sliced_filenames)
 
 arry_max_size = filenames.map(&:size).max
 
-def transpose_divided_arry(divided_arry, arry_max_size)
-  divided_arry.transpose.each do |line|
+def transpose_sliced_filenames(sliced_filenames, arry_max_size)
+  sliced_filenames.transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-transpose_divided_arry(divided_arry, arry_max_size)
+transpose_sliced_filenames(sliced_filenames, arry_max_size)
