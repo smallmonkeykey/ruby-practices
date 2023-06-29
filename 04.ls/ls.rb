@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
+require 'optparse'
+
 filenames = Dir.glob('*')
+
+opt = OptionParser.new
+opt.on('-a', '--all') { filenames = Dir.entries('.').sort }
+opt.parse(ARGV)
 
 ROWS = 3
 
