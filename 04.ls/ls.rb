@@ -2,28 +2,38 @@
 
 require 'optparse'
 
-filenames = Dir.glob('*')
-
-opt = OptionParser.new
-opt.on('-a', '--all') { filenames = Dir.entries('.').sort }
-opt.parse(ARGV)
-
 ROWS = 3
 
-sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
-
-def fill_blank_to_matrix_shape(sliced_filenames)
-  (sliced_filenames[0].size - sliced_filenames.last.size).times { sliced_filenames.last.push(' ') }
+def exec_ls_command
+  filenames = Dir.glob('*')
+  desplay_filenames(filenames)
 end
 
-fill_blank_to_matrix_shape(sliced_filenames)
+def exec_ls_a_command
+  filenames = Dir.entries('.').sort
+  desplay_filenames(filenames)
+end
 
-arry_max_size = filenames.map(&:size).max
+def split_files_equally(filenames)
+  sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
+  (sliced_filenames[0].size - sliced_filenames.last.size).times { sliced_filenames.last.push(' ') }
+  sliced_filenames
+end
 
-def transpose_sliced_filenames(sliced_filenames, arry_max_size)
-  sliced_filenames.transpose.each do |line|
+def transpose_split_files_equally(filenames)
+  arry_max_size = filenames.map(&:size).max
+  split_files_equally(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-transpose_sliced_filenames(sliced_filenames, arry_max_size)
+def desplay_filenames(filenames)
+  split_files_equally(filenames)
+  transpose_split_files_equally(filenames)
+end
+
+opt = OptionParser.new
+opt.on('-a', '--all') { exec_ls_a_command }
+opt.parse(ARGV)
+
+exec_ls_command if ARGV.empty?
