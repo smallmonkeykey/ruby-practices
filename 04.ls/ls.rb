@@ -1,18 +1,19 @@
 # frozen_string_literal: true
+
 require 'optparse'
 
 opt = OptionParser.new
 params = {}
 opt.on('-a') { |v| v }
 
-opt.parse!(ARGV, into: params) 
+opt.parse!(ARGV, into: params)
 
 def get_the_file_name(params)
-    if params[:a]
-      Dir.entries('.').sort
-    else 
-        filenames = Dir.glob("*")
-    end
+  if params[:a]
+    Dir.entries('.').sort
+  else
+    Dir.glob('*')
+  end
 end
 
 filenames = get_the_file_name(params)
@@ -33,8 +34,8 @@ def transpose_split_files_equally(filenames)
 end
 
 def exec_ls_command(filenames)
-    split_files_equally(filenames)
-    transpose_split_files_equally(filenames)
+  split_files_equally(filenames)
+  transpose_split_files_equally(filenames)
 end
 
 exec_ls_command(filenames)
