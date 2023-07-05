@@ -1,18 +1,23 @@
 # frozen_string_literal: true
-
 require 'optparse'
 
+opt = OptionParser.new
+params = {}
+opt.on('-a') { |v| v }
+
+opt.parse!(ARGV, into: params) 
+
+def get_the_file_name(params)
+    if params[:a]
+      Dir.entries('.').sort
+    else 
+        filenames = Dir.glob("*")
+    end
+end
+
+filenames = get_the_file_name(params)
+
 ROWS = 3
-
-def exec_ls_command
-  filenames = Dir.glob('*')
-  desplay_filenames(filenames)
-end
-
-def exec_ls_a_command
-  filenames = Dir.entries('.').sort
-  desplay_filenames(filenames)
-end
 
 def split_files_equally(filenames)
   sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
@@ -27,13 +32,9 @@ def transpose_split_files_equally(filenames)
   end
 end
 
-def desplay_filenames(filenames)
-  split_files_equally(filenames)
-  transpose_split_files_equally(filenames)
+def exec_ls_command(filenames)
+    split_files_equally(filenames)
+    transpose_split_files_equally(filenames)
 end
 
-opt = OptionParser.new
-opt.on('-a', '--all') { exec_ls_a_command }
-opt.parse(ARGV)
-
-exec_ls_command if ARGV.empty?
+exec_ls_command(filenames)
