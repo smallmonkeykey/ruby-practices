@@ -8,7 +8,7 @@ opt.on('-a') { |v| v }
 
 opt.parse!(ARGV, into: params)
 
-def get_the_file_name(params)
+def get_filenames(params)
   if params[:a]
     Dir.entries('.').sort
   else
@@ -16,7 +16,7 @@ def get_the_file_name(params)
   end
 end
 
-filenames = get_the_file_name(params)
+filenames = get_filenames(params)
 
 ROWS = 3
 
@@ -26,16 +26,12 @@ def split_files_equally(filenames)
   sliced_filenames
 end
 
-def transpose_split_files_equally(filenames)
+def transpose_split_files(filenames)
   arry_max_size = filenames.map(&:size).max
   split_files_equally(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-def exec_ls_command(filenames)
-  split_files_equally(filenames)
-  transpose_split_files_equally(filenames)
-end
+transpose_split_files(filenames)
 
-exec_ls_command(filenames)
