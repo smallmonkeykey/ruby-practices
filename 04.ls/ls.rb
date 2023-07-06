@@ -34,4 +34,3 @@ def transpose_split_files(chunk_filenames)
 end
 
 transpose_split_files(chunk_filenames)
-
