@@ -16,21 +16,21 @@ def get_filenames(params)
   end
 end
 
-chunk_filenames = get_filenames(params)
+filenames = get_filenames(params)
 
 ROWS = 3
 
-def split_files_equally(chunk_filenames)
-  sliced_chunk_filenames = chunk_filenames.each_slice((chunk_filenames.size.to_f / ROWS).ceil).to_a
-  (sliced_chunk_filenames[0].size - sliced_chunk_filenames.last.size).times { sliced_chunk_filenames.last.push(' ') }
-  sliced_chunk_filenames
+def split_files_equally(filenames)
+  sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
+  (sliced_filenames[0].size - sliced_filenames.last.size).times { sliced_filenames.last.push(' ') }
+  sliced_filenames
 end
 
-def transpose_split_files(chunk_filenames)
-  arry_max_size = chunk_filenames.map(&:size).max
-  split_files_equally(chunk_filenames).transpose.each do |line|
+def transpose_split_files(filenames)
+  arry_max_size = filenames.map(&:size).max
+  split_files_equally(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-transpose_split_files(chunk_filenames)
+transpose_split_files(filenames)
