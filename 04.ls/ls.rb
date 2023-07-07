@@ -16,8 +16,6 @@ def get_filenames(params)
   end
 end
 
-filenames = get_filenames(params)
-
 ROWS = 3
 
 def chunk_filenames(filenames)
@@ -26,11 +24,16 @@ def chunk_filenames(filenames)
   sliced_filenames
 end
 
-def transpose_split_files(filenames)
+def view_filenames(filenames)
   arry_max_size = filenames.map(&:size).max
   chunk_filenames(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-transpose_split_files(filenames)
+def exec_ls_command(params)
+  filenames = get_filenames(params)
+  view_filenames(filenames)
+end
+
+exec_ls_command(params)
