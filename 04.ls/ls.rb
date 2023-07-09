@@ -1,23 +1,39 @@
 # frozen_string_literal: true
 
-filenames = Dir.glob('*')
+require 'optparse'
+
+opt = OptionParser.new
+params = {}
+opt.on('-a') { |v| v }
+
+opt.parse!(ARGV, into: params)
+
+def get_filenames(params)
+  if params[:a]
+    Dir.entries('.').sort
+  else
+    Dir.glob('*')
+  end
+end
 
 ROWS = 3
 
-sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
-
-def fill_blank_to_matrix_shape(sliced_filenames)
+def chunk_filenames(filenames)
+  sliced_filenames = filenames.each_slice((filenames.size.to_f / ROWS).ceil).to_a
   (sliced_filenames[0].size - sliced_filenames.last.size).times { sliced_filenames.last.push(' ') }
+  sliced_filenames
 end
 
-fill_blank_to_matrix_shape(sliced_filenames)
-
-arry_max_size = filenames.map(&:size).max
-
-def transpose_sliced_filenames(sliced_filenames, arry_max_size)
-  sliced_filenames.transpose.each do |line|
+def display_filenames(filenames)
+  arry_max_size = filenames.map(&:size).max
+  chunk_filenames(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
 end
 
-transpose_sliced_filenames(sliced_filenames, arry_max_size)
+def exec_ls_command(params)
+  filenames = get_filenames(params)
+  display_filenames(filenames)
+end
+
+exec_ls_command(params)
