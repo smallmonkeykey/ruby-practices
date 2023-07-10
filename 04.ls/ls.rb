@@ -4,16 +4,12 @@ require 'optparse'
 
 opt = OptionParser.new
 params = {}
-opt.on('-a') { |v| v }
+opt.on('-r') { |v| v }
 
 opt.parse!(ARGV, into: params)
 
 def get_filenames(params)
-  if params[:a]
-    Dir.entries('.').sort
-  else
-    Dir.glob('*')
-  end
+  params[:r] ? Dir.glob('*').reverse : Dir.glob('*')
 end
 
 ROWS = 3
