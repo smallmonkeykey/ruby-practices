@@ -8,7 +8,7 @@ opt.on('-r') { |v| v }
 
 opt.parse!(ARGV, into: params)
 
-def take_filenames(params)
+def get_filenames(params)
   params[:r] ? Dir.glob('*').reverse : Dir.glob('*')
 end
 
@@ -28,7 +28,7 @@ def display_filenames(filenames)
 end
 
 def exec_ls_command(params)
-  filenames = take_filenames(params)
+  filenames = get_filenames(params)
   display_filenames(filenames)
 end
 
