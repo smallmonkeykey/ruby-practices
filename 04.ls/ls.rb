@@ -67,7 +67,7 @@ end
 def display_ls_l_command(filenames)
   filenames.each do |filename|
     filetype = File.ftype(filename)
-    filetype_result = convert_filetypes(filetype)
+    filetype_result = convert_filetype(filetype)
 
     stat = File.stat(filename)
     filemode = stat.mode.to_s(8)
@@ -82,7 +82,7 @@ def display_ls_l_command(filenames)
 
     time = stat.mtime.strftime('%_m %_d %H:%M')
 
-    print "#{filetype_result}#{permission_result}#{hard_link} #{owner}  #{group}#{file_size} #{time} #{filename}\n"
+    puts "#{filetype_result}#{permission_result}#{hard_link} #{owner}  #{group}#{file_size} #{time} #{filename}"
   end
 end
 
