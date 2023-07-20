@@ -33,7 +33,7 @@ def exec_ls_command
   display_filenames(filenames)
 end
 
-def convert_filetypes(filetype)
+def convert_filetype(filetype)
   {
     'file' => '-',
     'directory' => 'd',
