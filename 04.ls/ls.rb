@@ -9,8 +9,8 @@ opt.on('-l') { |v| v }
 
 opt.parse!(ARGV, into: params)
 
-def determine_option(params)
-  params[:l] ? exec_ls_l_command : exec_ls_command
+def exec_ls_command(params)
+  params[:l] ? show_long_format : show_short_format
 end
 
 ROWS = 3
@@ -28,7 +28,7 @@ def display_filenames(filenames)
   end
 end
 
-def exec_ls_command
+def show_short_format
   filenames = Dir.glob('*')
   display_filenames(filenames)
 end
@@ -86,9 +86,9 @@ def display_ls_l_command(filenames)
   end
 end
 
-def exec_ls_l_command
+def show_long_format
   filenames = Dir.glob('*')
   display_ls_l_command(filenames)
 end
 
-determine_option(params)
+exec_ls_command(params)
