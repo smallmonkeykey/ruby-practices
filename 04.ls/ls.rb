@@ -58,7 +58,7 @@ end
 
 def determine_permissions(filemode)
   last_three_digits = filemode.to_i % 1000
-  last_three_digits_arry = last_three_digits.digits
+  last_three_digits_arry = last_three_digits.digits.reverse
 
   permission = last_three_digits_arry.map { |digit| convert_permissions(digit) }
   permission.join('')
