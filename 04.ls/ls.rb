@@ -5,13 +5,11 @@ require 'etc'
 
 opt = OptionParser.new
 params = {}
+opt.on('-a') { |v| v }
+opt.on('-r') { |v| v }
 opt.on('-l') { |v| v }
 
 opt.parse!(ARGV, into: params)
-
-def exec_ls_command(params)
-  params[:l] ? show_long_format : show_short_format
-end
 
 ROWS = 3
 
@@ -26,11 +24,6 @@ def display_filenames(filenames)
   chunk_filenames(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
-end
-
-def show_short_format
-  filenames = Dir.glob('*')
-  display_filenames(filenames)
 end
 
 def convert_filetype(filetype)
@@ -86,9 +79,60 @@ def display_ls_l_command(filenames)
   end
 end
 
-def show_long_format
+def exec_normal_ls_command
+  filenames = Dir.glob('*')
+  display_filenames(filenames)
+end
+
+def exec_a_option
+    filenames = Dir.entries('.').sort
+    display_filenames(filenames)
+end
+
+def exec_r_option
+    filenames = Dir.glob('*').reverse
+    display_filenames(filenames)
+end
+
+def exec_l_option
   filenames = Dir.glob('*')
   display_ls_l_command(filenames)
 end
 
-exec_ls_command(params)
+def exec_ar_option
+    filenames = Dir.entries('.').sort.reverse
+    display_filenames(filenames)
+end
+
+def exec_al_option
+    filenames = Dir.entries('.').sort
+    display_ls_l_command(filenames)
+end
+
+def exec_rl_option
+  filenames = Dir.glob('*').reverse
+  display_ls_l_command(filenames)
+end
+
+def exec_arl_option
+    filenames = Dir.entries('.').sort.reverse
+    display_ls_l_command(filenames)
+end
+
+if params[:a] == true && params[:r] == true && params[:l] == true
+    exec_arl_option
+elsif params[:a] == true && params[:r] == true
+   exec_ar_option
+elsif params[:a] == true && params[:l] == true
+   exec_al_option
+elsif params[:r] == true && params[:l] == true
+    exec_rl_option
+elsif params[:a] == true
+    exec_a_option
+elsif params[:r] == true
+    exec_r_option
+elsif params[:l] == true
+    exec_l_option
+else 
+   exec_normal_ls_command
+end
