@@ -79,60 +79,12 @@ def display_ls_l_command(filenames)
   end
 end
 
-def exec_normal_ls_command
-  filenames = Dir.glob('*')
-  display_filenames(filenames)
-end
+filenames = Dir.glob('*')
+filenames = Dir.entries('.').sort if params[:a] == true
+filenames = filenames.reverse if params[:r] == true
 
-def exec_a_option
-  filenames = Dir.entries('.').sort
-  display_filenames(filenames)
-end
-
-def exec_r_option
-  filenames = Dir.glob('*').reverse
-  display_filenames(filenames)
-end
-
-def exec_l_option
-  filenames = Dir.glob('*')
+if params[:l] == true
   display_ls_l_command(filenames)
-end
-
-def exec_ar_option
-  filenames = Dir.entries('.').sort.reverse
-  display_filenames(filenames)
-end
-
-def exec_al_option
-  filenames = Dir.entries('.').sort
-  display_ls_l_command(filenames)
-end
-
-def exec_rl_option
-  filenames = Dir.glob('*').reverse
-  display_ls_l_command(filenames)
-end
-
-def exec_arl_option
-  filenames = Dir.entries('.').sort.reverse
-  display_ls_l_command(filenames)
-end
-
-if params[:a] == true && params[:r] == true && params[:l] == true
-  exec_arl_option
-elsif params[:a] == true && params[:r] == true
-  exec_ar_option
-elsif params[:a] == true && params[:l] == true
-  exec_al_option
-elsif params[:r] == true && params[:l] == true
-  exec_rl_option
-elsif params[:a] == true
-  exec_a_option
-elsif params[:r] == true
-  exec_r_option
-elsif params[:l] == true
-  exec_l_option
 else
-  exec_normal_ls_command
+  display_filenames(filenames)
 end
