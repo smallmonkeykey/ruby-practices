@@ -19,7 +19,7 @@ def chunk_filenames(filenames)
   sliced_filenames
 end
 
-def display_filenames(filenames)
+def show_short_format(filenames)
   arry_max_size = filenames.map(&:size).max
   chunk_filenames(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
@@ -57,7 +57,7 @@ def determine_permissions(filemode)
   permission.join('')
 end
 
-def display_ls_l_command(filenames)
+def show_long_format(filenames)
   filenames.each do |filename|
     filetype = File.ftype(filename)
     filetype_result = convert_filetype(filetype)
@@ -84,7 +84,7 @@ filenames = Dir.entries('.').sort if params[:a]
 filenames = filenames.reverse if params[:r]
 
 if params[:l]
-  display_ls_l_command(filenames)
+  show_long_format(filenames)
 else
-  display_filenames(filenames)
+  show_short_format(filenames)
 end
