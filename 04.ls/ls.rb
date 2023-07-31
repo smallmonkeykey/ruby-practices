@@ -57,12 +57,22 @@ def determine_permissions(filemode)
   permission.join('')
 end
 
+def sum_blocks(filenames)
+  filename_blocks = filenames.map do|filename| 
+    stat = File.stat(filename)
+    stat.blocks
+  end
+  total_blocks = filename_blocks.sum
+  puts  "total #{total_blocks}"
+end
+
 def show_long_format(filenames)
   filenames.each do |filename|
     filetype = File.ftype(filename)
     filetype_result = convert_filetype(filetype)
 
     stat = File.stat(filename)
+
     filemode = stat.mode.to_s(8)
     permission_result = determine_permissions(filemode)
 
@@ -84,6 +94,7 @@ filenames = Dir.entries('.').sort if params[:a]
 filenames = filenames.reverse if params[:r]
 
 if params[:l]
+  sum_blocks(filenames)
   show_long_format(filenames)
 else
   show_short_format(filenames)
