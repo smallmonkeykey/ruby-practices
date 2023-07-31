@@ -80,10 +80,10 @@ def display_ls_l_command(filenames)
 end
 
 filenames = Dir.glob('*')
-filenames = Dir.entries('.').sort if params[:a] == true
-filenames = filenames.reverse if params[:r] == true
+filenames = Dir.entries('.').sort if params[:a]
+filenames = filenames.reverse if params[:r]
 
-if params[:l] == true
+if params[:l]
   display_ls_l_command(filenames)
 else
   display_filenames(filenames)
