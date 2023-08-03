@@ -5,13 +5,11 @@ require 'etc'
 
 opt = OptionParser.new
 params = {}
+opt.on('-a') { |v| v }
+opt.on('-r') { |v| v }
 opt.on('-l') { |v| v }
 
 opt.parse!(ARGV, into: params)
-
-def exec_ls_command(params)
-  params[:l] ? show_long_format : show_short_format
-end
 
 ROWS = 3
 
@@ -21,16 +19,11 @@ def chunk_filenames(filenames)
   sliced_filenames
 end
 
-def display_filenames(filenames)
+def show_short_format(filenames)
   arry_max_size = filenames.map(&:size).max
   chunk_filenames(filenames).transpose.each do |line|
     puts line.map { |file| file.ljust(arry_max_size + 1) }.join
   end
-end
-
-def show_short_format
-  filenames = Dir.glob('*')
-  display_filenames(filenames)
 end
 
 def convert_filetype(filetype)
@@ -64,12 +57,18 @@ def determine_permissions(filemode)
   permission.join('')
 end
 
-def display_ls_l_command(filenames)
+def show_sum_blocks(filenames)
+  total_blocks = filenames.sum { |filename| File.stat(filename).blocks }
+  puts "total #{total_blocks}"
+end
+
+def show_long_format(filenames)
   filenames.each do |filename|
     filetype = File.ftype(filename)
     filetype_result = convert_filetype(filetype)
 
     stat = File.stat(filename)
+
     filemode = stat.mode.to_s(8)
     permission_result = determine_permissions(filemode)
 
@@ -86,9 +85,13 @@ def display_ls_l_command(filenames)
   end
 end
 
-def show_long_format
-  filenames = Dir.glob('*')
-  display_ls_l_command(filenames)
-end
+filenames = Dir.glob('*')
+filenames = Dir.entries('.').sort if params[:a]
+filenames = filenames.reverse if params[:r]
 
-exec_ls_command(params)
+if params[:l]
+  show_sum_blocks(filenames)
+  show_long_format(filenames)
+else
+  show_short_format(filenames)
+end
