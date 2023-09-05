@@ -81,7 +81,7 @@ def show_long_format(filenames)
 
     time = stat.mtime.strftime('%_m %_d %H:%M')
 
-    puts "#{filetype_result}#{permission_result}#{hard_link} #{owner}  #{group}#{file_size} #{time} #{filename}"
+    puts "#{filetype_result}#{permission_result} #{hard_link} #{owner}  #{group}#{file_size} #{time} #{filename}"
   end
 end
 
