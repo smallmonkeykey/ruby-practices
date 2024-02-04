@@ -3,8 +3,8 @@ require_relative 'frame'
 class Game
 	attr_reader :scores, :frames
 
-	def initialize(score)
-		@scores = score.split(',')
+	def initialize(result)
+		@scores = result.split(',')
 	end
 
 	def split_frames
