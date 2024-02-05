@@ -4,7 +4,7 @@ require_relative 'game'
 class GameTest < Minitest::Test
   def calculate_total_score(result)
     game = Game.new(result)
-    game.total_score
+    game.calculate_total_score
   end
 
   def test_game1
