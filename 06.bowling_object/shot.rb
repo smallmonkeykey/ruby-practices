@@ -1,11 +1,11 @@
 class Shot
   def initialize(mark)
-        @mark = mark
+    @mark = mark
   end
 
-	def score
-		return 10 if @mark == "X"
+  def score
+    return 10 if @mark == 'X'
 
-		@mark.to_i
-	end
+    @mark.to_i
+  end
 end
