@@ -10,15 +10,15 @@ class Game
 	def split_frames
 	  @frames = []
 		9.times do
-			rolls = @scores.shift(2)
+			rolls = scores.shift(2)
 			if rolls[0] == "X"
-				@frames << Frame.new(rolls.first, nil)
-			  @scores.unshift(rolls.last)
+				frames << Frame.new(rolls.first, nil)
+			  scores.unshift(rolls.last)
 			else
-				@frames << Frame.new(*rolls)
+				frames << Frame.new(*rolls)
 			end
 		end
-		@frames << Frame.new(*@scores)
+		frames << Frame.new(*scores)
 	end
 
 	def total_score

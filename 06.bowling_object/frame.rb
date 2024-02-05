@@ -10,16 +10,16 @@ class Frame
   end
 
 	def sum_score
-		score = @first_shot.score + @second_shot.score
-		score += @third_shot.score if @third_shot.score != 0
+		score = first_shot.score + second_shot.score
+		score += third_shot.score if third_shot.score != 0
 		score
 	end
 
 	def spare?
-		@first_shot.score + @second_shot.score == 10
+		first_shot.score + second_shot.score == 10
 	end
 
 	def strike?
-		@first_shot.score == 10
+		first_shot.score == 10
 	end
 end
