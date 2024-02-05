@@ -6,26 +6,28 @@ class Game
   def initialize(result)
     @scores = result.split(',')
   end
+	
+	def split_frames
+		@frames = []
+		9.times do
+			rolls = scores.shift(2)
+			if rolls[0] == 'X'
+				frames << Frame.new(rolls.first, nil)
+				scores.unshift(rolls.last)
+			else
+				frames << Frame.new(*rolls)
+			end
+		end
+		frames << Frame.new(*scores)
+	end
 
-  def split_frames
-    @frames = []
-    9.times do
-      rolls = scores.shift(2)
-      if rolls[0] == 'X'
-        frames << Frame.new(rolls.first, nil)
-        scores.unshift(rolls.last)
-      else
-        frames << Frame.new(*rolls)
-      end
-    end
-    frames << Frame.new(*scores)
-  end
+	def total_score
+		total = []
+		split_frames.each_with_index { |frame, index| calculate_score(frame, index, total) }
+		total.sum
+	end
 
-  def total_score
-    total = []
-    split_frames.each_with_index { |frame, index| calculate_score(frame, index, total) }
-    total.sum
-  end
+	private
 
   def calculate_score(frame, index, total)
     if index >= 9
