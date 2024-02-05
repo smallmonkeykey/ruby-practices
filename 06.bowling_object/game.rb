@@ -28,20 +28,21 @@ class Game
 	end
 
 	def calculate_score(frame, index, total)
-		if index < 9
-			if index == 8 && frame.strike?
-				total << frame.sum_score + frames[index + 1].first_shot.score + frames[index + 1].second_shot.score
-			elsif frame.strike? && frames[index + 1].strike?
-				total << frame.sum_score + frames[index + 1].first_shot.score + frames[index + 2].first_shot.score
-			elsif frame.strike?
-				total << frame.sum_score + frames[index + 1].first_shot.score + frames[index + 1].second_shot.score
-			elsif frame.spare?
-				total << frame.sum_score + frames[index +1].first_shot.score
-			else
-				total << frame.sum_score
-			end
+		if index >= 9
+			total << frame.sum_score
+			return
+		end
+	
+		if index == 8 && frame.strike?
+			total << frame.sum_score + frames[index + 1].first_shot.score + frames[index + 1].second_shot.score
+		elsif frame.strike? && frames[index + 1].strike?
+			total << frame.sum_score + frames[index + 1].first_shot.score + frames[index + 2].first_shot.score
+		elsif frame.strike?
+			total << frame.sum_score + frames[index + 1].first_shot.score + frames[index + 1].second_shot.score
+		elsif frame.spare?
+			total << frame.sum_score + frames[index +1].first_shot.score
 		else
-				total << frame.sum_score
-	  end
+			total << frame.sum_score
+		end
   end
 end
