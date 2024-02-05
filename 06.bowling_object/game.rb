@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'frame'
 
 class Game
@@ -29,12 +31,12 @@ class Game
 
   private
 
-	def calculate_normal_frame(frame, index, totals)
-		total = 0
-		total += frame.sum_score
-		total += frames[index + 1].first_shot.score if frame.strike? || frame.spare?
-		total += frames[index + 1].second_shot.score if frame.strike?
-		total += frames[index + 2].first_shot.score if index < 8 && frame.strike? && frames[index + 1].strike?
-		totals << total
-	end
+  def calculate_normal_frame(frame, index, totals)
+    total = 0
+    total += frame.sum_score
+    total += frames[index + 1].first_shot.score if frame.strike? || frame.spare?
+    total += frames[index + 1].second_shot.score if frame.strike?
+    total += frames[index + 2].first_shot.score if index < 8 && frame.strike? && frames[index + 1].strike?
+    totals << total
+  end
 end
