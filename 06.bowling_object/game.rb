@@ -27,7 +27,7 @@ class Game
     frames << Frame.new(*user_inputs[i..])
   end
 
-  def calculate_total_score
+  def calculate_score
     totals = []
     split_frames.each_with_index { |frame, index| index < 9 ? calculate_normal_frame(frame, index, totals) : totals << frame.sum_score }
     totals.sum
