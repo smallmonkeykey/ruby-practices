@@ -9,17 +9,17 @@ class Game
 
   def split_frames
     @frames = []
-		i = 0
-		9.times do
-			first = @user_inputs[i]
-			second = nil
-			if first == "X"
-				i += 1
-			else
-				second = @user_inputs[i + 1]
-				i += 2
-			end
-			@frames << Frame.new(first, second)
+    i = 0
+    9.times do
+      first = @user_inputs[i]
+      second = nil
+      if first == 'X'
+        i += 1
+      else
+        second = @user_inputs[i + 1]
+        i += 2
+      end
+      @frames << Frame.new(first, second)
     end
 
     @frames << Frame.new(*@user_inputs[i..])
@@ -27,7 +27,7 @@ class Game
 
   def calculate_score
     totals = []
-    split_frames.each_with_index { |frame, index| index < 9 ? totals << calculate_normal_frame(frame, index) : totals << frame.sum_score }
+    split_frames.each_with_index { |frame, index| totals << (index < 9 ? calculate_normal_frame(frame, index) : frame.sum_score) }
     totals.sum
   end
 
