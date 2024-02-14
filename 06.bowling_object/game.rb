@@ -6,21 +6,25 @@ class Game
   attr_reader :scores, :frames
 
   def initialize(result)
-    @scores = result.split(',')
+   @scores = result.split(',')
   end
 
   def split_frames
     @frames = []
-    9.times do
-      rolls = scores.shift(2)
-      if rolls[0] == 'X'
-        frames << Frame.new(rolls.first, nil)
-        scores.unshift(rolls.last)
-      else
-        frames << Frame.new(*rolls)
-      end
+		i = 0
+		9.times do
+			first = scores[i]
+			second = nil
+			if first == "X"
+				i += 1
+			else
+				second = scores[i + 1]
+				i += 2
+			end
+			frames << Frame.new(first, second)
     end
-    frames << Frame.new(*scores)
+
+    frames << Frame.new(*scores[i..])
   end
 
   def calculate_total_score
