@@ -13,7 +13,7 @@ class Frame
     @third_shot = Shot.new(third_mark)
   end
 
-  def sum_score
+  def normal_score
     score = first_shot.score + second_shot.score
     score += @third_shot.score if @third_shot.score != 0
     score

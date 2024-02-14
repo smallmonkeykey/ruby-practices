@@ -27,7 +27,7 @@ class Game
 
   def calculate_score
     totals = []
-    split_frames.each_with_index { |frame, index| totals << (index < 9 ? calculate_normal_frame(frame, index) : frame.sum_score) }
+    split_frames.each_with_index { |frame, index| totals << (index < 9 ? calculate_normal_frame(frame, index) : frame.normal_score) }
     totals.sum
   end
 
@@ -35,7 +35,7 @@ class Game
 
   def calculate_normal_frame(frame, index)
     total = 0
-    total += frame.sum_score
+    total += frame.normal_score
     total += @frames[index + 1].first_shot.score if frame.strike? || frame.spare?
     total += @frames[index + 1].second_shot.score if frame.strike?
     total += @frames[index + 2].first_shot.score if index < 8 && frame.strike? && @frames[index + 1].strike?
