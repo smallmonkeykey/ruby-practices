@@ -3,28 +3,28 @@
 require_relative 'frame'
 
 class Game
-  attr_reader :scores, :frames
+  attr_reader :user_inputs, :frames
 
   def initialize(user_input)
-    @scores = user_input.split(',')
+    @user_inputs = user_input.split(',')
   end
 
   def split_frames
     @frames = []
 		i = 0
 		9.times do
-			first = scores[i]
+			first = user_inputs[i]
 			second = nil
 			if first == "X"
 				i += 1
 			else
-				second = scores[i + 1]
+				second = user_inputs[i + 1]
 				i += 2
 			end
 			frames << Frame.new(first, second)
     end
 
-    frames << Frame.new(*scores[i..])
+    frames << Frame.new(*user_inputs[i..])
   end
 
   def calculate_total_score
