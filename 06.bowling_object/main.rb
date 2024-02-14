@@ -3,4 +3,4 @@
 require_relative 'game'
 
 game = Game.new(ARGV[0])
-puts game.calculate_total_score
+puts game.calculate_score
