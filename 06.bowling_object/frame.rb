@@ -3,7 +3,7 @@
 require_relative 'shot'
 
 class Frame
-  attr_reader :first_shot, :second_shot, :third_shot
+  attr_reader :first_shot, :second_shot
 
   STRIKE = 10
 
@@ -15,7 +15,7 @@ class Frame
 
   def sum_score
     score = first_shot.score + second_shot.score
-    score += third_shot.score if third_shot.score != 0
+    score += @third_shot.score if @third_shot.score != 0
     score
   end
 
