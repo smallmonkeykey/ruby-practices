@@ -4,7 +4,7 @@ require_relative 'frame'
 
 class Game
   def initialize(marks)
-     @marks = marks
+    @marks = marks
   end
 
   def split_frames
