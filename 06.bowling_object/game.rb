@@ -3,26 +3,26 @@
 require_relative 'frame'
 
 class Game
-  def initialize(user_input)
-    @user_inputs = user_input.split(',')
+  def initialize(marks)
+     @marks = marks
   end
 
   def split_frames
     @frames = []
     i = 0
     9.times do
-      first = @user_inputs[i]
+      first = @marks[i]
       second = nil
       if first == 'X'
         i += 1
       else
-        second = @user_inputs[i + 1]
+        second = @marks[i + 1]
         i += 2
       end
       @frames << Frame.new(first, second)
     end
 
-    @frames << Frame.new(*@user_inputs[i..])
+    @frames << Frame.new(*@marks[i..])
   end
 
   def calculate_score

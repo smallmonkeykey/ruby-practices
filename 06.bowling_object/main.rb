@@ -2,5 +2,6 @@
 
 require_relative 'game'
 
-game = Game.new(ARGV[0])
+marks = ARGV[0].split(',')
+game = Game.new(marks)
 puts game.calculate_score
