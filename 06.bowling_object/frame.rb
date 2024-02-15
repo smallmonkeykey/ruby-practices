@@ -27,12 +27,12 @@ class Frame
     first_shot.score == STRIKE_SCORE
   end
 
-  def calculate_normal_frame(next_frame, next_next_frame)
+  def calculate_normal_frame(next_frame, after_next_frame)
     total = 0
     total += score_without_bonus
     total += next_frame.first_shot.score if strike? || spare?
     total += next_frame.second_shot.score if strike?
-    total += next_next_frame.first_shot.score if !next_next_frame.nil? && strike? && next_frame.strike?
+    total += after_next_frame.first_shot.score if !after_next_frame.nil? && strike? && next_frame.strike?
     total
   end
 end

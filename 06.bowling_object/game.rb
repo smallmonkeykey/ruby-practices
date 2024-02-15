@@ -29,8 +29,8 @@ class Game
     totals = []
     split_frames.each_with_index do |frame, index|
       next_frame = @frames[index + 1]
-      next_next_frame = @frames[index + 2]
-      totals << (index < 9 ? frame.calculate_normal_frame(next_frame, next_next_frame) : frame.score_without_bonus)
+      after_next_frame = @frames[index + 2]
+      totals << (index < 9 ? frame.calculate_normal_frame(next_frame, after_next_frame) : frame.score_without_bonus)
     end
     totals.sum
   end
