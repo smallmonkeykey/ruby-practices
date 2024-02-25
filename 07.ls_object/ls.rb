@@ -9,7 +9,7 @@ class Ls
 
   def list_files
     create_arranged_filenames.each do |row|
-      puts row.map { |file| file.ljust(arry_max_size + 2) }.join
+      puts row.map { |file| file.ljust(max_size + 2) }.join
     end
   end
 
@@ -27,7 +27,7 @@ class Ls
     arranged_filenames
   end
 
-  def arry_max_size
+  def max_size
     @filenames.map(&:size).max
   end
 end
