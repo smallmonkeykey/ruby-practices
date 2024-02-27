@@ -9,8 +9,8 @@ class File
 
   def create_filenames
    filenames = Dir.glob('*')
-   filenames = Dir.entries('.').sort if @params[:a]
-   filenames = filenames.reverse if @params[:r]
+   filenames = Dir.entries('.').sort if @params["a"]
+   filenames = filenames.reverse if @params["r"]
    filenames
   end
 end
