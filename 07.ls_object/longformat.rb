@@ -27,7 +27,17 @@ class LongFormat
 		end
   end
 
-  def total_block
+	def create_file_info(stat, filename)
+			print "#{format_type(stat)}#{format_mode(stat)} "
+			print "#{build_stat(filename)[:nlink].rjust(find_max_size[:nlink] + 1)} "
+			print "#{build_stat(filename)[:owner].ljust(find_max_size[:owner] + 1)}"
+			print "#{build_stat(filename)[:group].rjust(find_max_size[:group] + 1)} "
+			print "#{build_stat(filename)[:filesize].rjust(find_max_size[:filesize] + 1)}"
+			print "#{build_stat(filename)[:time].rjust(find_max_size[:time] + 1)} "
+			print "#{build_stat(filename)[:filename]}"
+	end
+
+	def total_block
     @filenames.map { |filename| File.stat(filename).blocks }.sum
   end
 
@@ -35,39 +45,34 @@ class LongFormat
     file_stat.directory? ? 'd' : '-'
   end
 
-	def create_file_info(stat, filename)
-			print "#{format_type(stat)}#{file_mode(stat)}"
-			print "#{hard_link(stat)}"
-			print "#{owner(stat)}"
-			print "#{group(stat)}"
-			print "#{file_size(stat)}"
-			print "#{time(stat)}"
-			print "#{filename}"
-	end
-
-	def file_mode(stat)
+	def format_mode(stat)
 		permissions = stat.mode.to_s(8).slice(-3, 3).to_i.digits.reverse
 		permissions.map { |permission| MODE_TABLE[permission] }.join
 	end
 
-	def hard_link(stat)
-		stat.nlink.to_s.rjust(3)
-	end
+	def build_stat(filename)
+   stat = File.stat(filename)
+  {
+    type: format_type(stat),
+    mode: format_mode(stat),
+    nlink: stat.nlink.to_s,
+    owner: Etc.getpwuid(stat.uid).name,
+    group: Etc.getgrgid(stat.gid).name,
+    filesize: stat.size.to_s,
+    time: stat.mtime.strftime('%_m %_d %H:%M'),
+    filename: filename
+  }
+  end
 
-	def owner(stat)
-		Etc.getpwuid(stat.uid).name
-	end
-
-	def group(stat)
-		Etc.getgrgid(stat.gid).name
-	end
-
-	def file_size(stat)
-		stat.size.to_s.rjust(6)
-	end
-
-	def time(stat)
-		stat.mtime.strftime('%_m %_d %H:%M')
+	def find_max_size
+		{
+			nlink: @filenames.map { |filename|  build_stat(filename)[:nlink].size }.max,
+			owner: @filenames.map { |filename|  build_stat(filename)[:owner].size }.max,
+			group: @filenames.map { |filename|  build_stat(filename)[:group].size }.max,
+			filesize: @filenames.map { |filename|  build_stat(filename)[:filesize].size }.max,
+			time: @filenames.map { |filename|  build_stat(filename)[:time].size }.max,
+			filename: @filenames.map { |filename|  filename.size }.max
+	  }
 	end
 
 end
