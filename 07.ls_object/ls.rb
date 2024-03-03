@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 require 'optparse'
-require_relative 'file'
+require_relative 'filepath'
+require_relative 'longformat'
 
 class Ls
   NUMBER_OF_COLUMNS = 3
 
   def initialize(params)
     @params = params
-    file = File.new(@params)
+    file = FilePath.new(params)
     @filenames = file.create_filenames
   end
 
 	def list_files
-		@params["l"] ? longformat : short_format
+		@params["l"] ? LongFormat.new(@filenames).list_files : short_format
 	end
 
   def short_format
