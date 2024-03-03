@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'optparse'
 require_relative 'filepath'
 require_relative 'longformat'
@@ -12,12 +13,12 @@ class Ls
     @filenames = file.create_filenames
   end
 
-	def list_files
-		@params["l"] ? LongFormat.new(@filenames).list_files : short_format
-	end
+  def list_files
+    @params['l'] ? LongFormat.new(@filenames).list_files : short_format
+  end
 
   def short_format
-			create_arranged_filenames.each do |row|
+    create_arranged_filenames.each do |row|
       puts row.map { |file| file.ljust(max_size + 2) }.join
     end
   end
