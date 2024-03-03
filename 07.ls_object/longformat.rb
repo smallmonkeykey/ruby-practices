@@ -27,6 +27,8 @@ class LongFormat
     end
   end
 
+  private
+
   def create_file_info(stat, filename)
     print "#{format_type(stat)}#{format_mode(stat)} "
     print "#{build_stat(filename)[:nlink].rjust(find_max_size[:nlink] + 1)} "

@@ -17,6 +17,8 @@ class Ls
     @params['l'] ? LongFormat.new(@filenames).list_files : short_format
   end
 
+  private
+
   def short_format
     create_arranged_filenames.each do |row|
       puts row.map { |file| file.ljust(max_size + 2) }.join

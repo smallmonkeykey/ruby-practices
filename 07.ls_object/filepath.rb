@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class FilePath
-  require 'optparse'
+require 'optparse'
 
+class FilePath
   def initialize(params)
     @params = params
   end
