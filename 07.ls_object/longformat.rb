@@ -61,10 +61,21 @@ class LongFormat
       owner: Etc.getpwuid(stat.uid).name,
       group: Etc.getgrgid(stat.gid).name,
       filesize: stat.size.to_s,
-      time: stat.mtime.strftime('%_m %_d %H:%M'),
+      time: find_time(stat),
       filename:
     }
   end
+
+	def find_time(stat)
+		today = Time.now
+		half_year_ago = today - 24*60*60*180
+
+		if stat.mtime < half_year_ago
+			 stat.mtime.strftime('%_m %_d  %Y')
+		else
+			stat.mtime.strftime('%_m %_d %H:%M')
+		end
+	end
 
   def find_max_size
     {
