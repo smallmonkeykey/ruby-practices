@@ -66,16 +66,16 @@ class LongFormat
     }
   end
 
-	def find_time(stat)
-		today = Time.now
-		half_year_ago = today - 24*60*60*180
+  def find_time(stat)
+    today = Time.now
+    half_year_ago = today - 24 * 60 * 60 * 180
 
-		if stat.mtime < half_year_ago
-			 stat.mtime.strftime('%_m %_d  %Y')
-		else
-			stat.mtime.strftime('%_m %_d %H:%M')
-		end
-	end
+    if stat.mtime < half_year_ago
+      stat.mtime.strftime('%_m %_d  %Y')
+    else
+      stat.mtime.strftime('%_m %_d %H:%M')
+    end
+  end
 
   def find_max_size
     {
