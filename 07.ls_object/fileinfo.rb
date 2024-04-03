@@ -25,7 +25,7 @@ class File_Information
       owner: Etc.getpwuid(@stat.uid).name,
       group: Etc.getgrgid(@stat.gid).name,
       filesize: @stat.size.to_s,
-      time: find_time(@stat),
+      time: find_time,
       filename: @filename
     }
   end
@@ -39,14 +39,14 @@ class File_Information
     permissions.map { |permission| MODE_TABLE[permission] }.join
   end
 
-   def find_time(stat)
+   def find_time
     today = Time.now
     half_year_ago = today - 24 * 60 * 60 * 180
 
-    if stat.mtime < half_year_ago
-      stat.mtime.strftime('%_m %_d  %Y')
+    if @stat.mtime < half_year_ago
+      @stat.mtime.strftime('%_m %_d  %Y')
     else
-      stat.mtime.strftime('%_m %_d %H:%M')
+      @stat.mtime.strftime('%_m %_d %H:%M')
     end
   end
 end
