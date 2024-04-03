@@ -1,19 +1,9 @@
 # frozen_string_literal: true
 
 require 'etc'
+require_relative 'fileinfo'
 
 class LongFormat
-  MODE_TABLE = {
-    0 => '---',
-    1 => '--x',
-    2 => '-w-',
-    3 => '-wx',
-    4 => 'r--',
-    5 => 'r-x',
-    6 => 'rw-',
-    7 => 'rwx'
-  }.freeze
-
   def initialize(filenames)
     @filenames = filenames
   end
@@ -22,68 +12,35 @@ class LongFormat
     puts "total #{total_block}"
 
     @filenames.each do |filename|
-      stat = File.stat(filename)
-      puts create_file_info(stat, filename)
+      puts create_file_info(filename)
     end
   end
 
   private
 
-  def create_file_info(stat, filename)
-    print "#{format_type(stat)}#{format_mode(stat)} "
-    print "#{build_stat(filename)[:nlink].rjust(find_max_size[:nlink] + 1)} "
-    print build_stat(filename)[:owner].ljust(find_max_size[:owner] + 1)
-    print "#{build_stat(filename)[:group].rjust(find_max_size[:group] + 1)} "
-    print build_stat(filename)[:filesize].rjust(find_max_size[:filesize] + 1)
-    print "#{build_stat(filename)[:time].rjust(find_max_size[:time] + 1)} "
-    print build_stat(filename)[:filename]
+  def create_file_info(filename)
+    file_info =  File_Information.new(filename)
+
+    print "#{file_info.format_type}#{file_info.format_mode} "
+    print "#{file_info.build_stat[:nlink].rjust(find_max_size[:nlink] + 1)} "
+    print file_info.build_stat[:owner].ljust(find_max_size[:owner] + 1)
+    print "#{file_info.build_stat[:group].rjust(find_max_size[:group] + 1)} "
+    print file_info.build_stat[:filesize].rjust(find_max_size[:filesize] + 1)
+    print "#{file_info.build_stat[:time].rjust(find_max_size[:time] + 1)} "
+    print file_info.build_stat[:filename]
   end
 
   def total_block
     @filenames.map { |filename| File.stat(filename).blocks }.sum
   end
 
-  def format_type(file_stat)
-    file_stat.directory? ? 'd' : '-'
-  end
-
-  def format_mode(stat)
-    permissions = stat.mode.to_s(8).slice(-3, 3).to_i.digits.reverse
-    permissions.map { |permission| MODE_TABLE[permission] }.join
-  end
-
-  def build_stat(filename)
-    stat = File.stat(filename)
-    {
-      type: format_type(stat),
-      mode: format_mode(stat),
-      nlink: stat.nlink.to_s,
-      owner: Etc.getpwuid(stat.uid).name,
-      group: Etc.getgrgid(stat.gid).name,
-      filesize: stat.size.to_s,
-      time: find_time(stat),
-      filename:
-    }
-  end
-
-  def find_time(stat)
-    today = Time.now
-    half_year_ago = today - 24 * 60 * 60 * 180
-
-    if stat.mtime < half_year_ago
-      stat.mtime.strftime('%_m %_d  %Y')
-    else
-      stat.mtime.strftime('%_m %_d %H:%M')
-    end
-  end
-
   def find_max_size
     {
-      nlink: @filenames.map { |filename| build_stat(filename)[:nlink].size }.max,
-      owner: @filenames.map { |filename|  build_stat(filename)[:owner].size }.max,
-      group: @filenames.map { |filename|  build_stat(filename)[:group].size }.max,
-      filesize: @filenames.map { |filename| build_stat(filename)[:filesize].size }.max,
-      time: @filenames.map { |filename| build_stat(filename)[:time].size }.max
+      nlink: @filenames.map { |filename| File_Information.new(filename).build_stat[:nlink].size }.max,
+      owner: @filenames.map { |filename| File_Information.new(filename).build_stat[:owner].size }.max,
+      group: @filenames.map { |filename| File_Information.new(filename).build_stat[:group].size }.max,
+      filesize: @filenames.map { |filename| File_Information.new(filename).build_stat[:filesize].size }.max,
+      time: @filenames.map { |filename| File_Information.new(filename).build_stat[:time].size }.max
     }
   end
 end
