@@ -7,14 +7,14 @@ require_relative 'longformat'
 class Ls
   NUMBER_OF_COLUMNS = 3
 
-  def initialize(params)
-    @params = params
-    file = FilePath.new(params)
+  def initialize(options)
+    @options = options
+    file = FilePath.new(options)
     @filenames = file.create_filenames
   end
 
   def list_files
-    @params['l'] ? LongFormat.new(@filenames).list_files : short_format
+    @options['l'] ? LongFormat.new(@filenames).list_files : short_format
   end
 
   private
