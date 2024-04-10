@@ -19,7 +19,7 @@ class LongFormat
   private
 
   def create_file_info(filename)
-    file_info =  File_Information.new(filename)
+    file_info = FileInformation.new(filename)
 
     print "#{file_info.format_type}#{file_info.format_mode} "
     print "#{file_info.build_stat[:nlink].rjust(find_max_size[:nlink] + 1)} "
@@ -36,11 +36,11 @@ class LongFormat
 
   def find_max_size
     {
-      nlink: @filenames.map { |filename| File_Information.new(filename).build_stat[:nlink].size }.max,
-      owner: @filenames.map { |filename| File_Information.new(filename).build_stat[:owner].size }.max,
-      group: @filenames.map { |filename| File_Information.new(filename).build_stat[:group].size }.max,
-      filesize: @filenames.map { |filename| File_Information.new(filename).build_stat[:filesize].size }.max,
-      time: @filenames.map { |filename| File_Information.new(filename).build_stat[:time].size }.max
+      nlink: @filenames.map { |filename| FileInformation.new(filename).build_stat[:nlink].size }.max,
+      owner: @filenames.map { |filename| FileInformation.new(filename).build_stat[:owner].size }.max,
+      group: @filenames.map { |filename| FileInformation.new(filename).build_stat[:group].size }.max,
+      filesize: @filenames.map { |filename| FileInformation.new(filename).build_stat[:filesize].size }.max,
+      time: @filenames.map { |filename| FileInformation.new(filename).build_stat[:time].size }.max
     }
   end
 end

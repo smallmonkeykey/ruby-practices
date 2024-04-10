@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class File_Information
+class FileInformation
   MODE_TABLE = {
     0 => '---',
     1 => '--x',
@@ -39,7 +39,7 @@ class File_Information
     permissions.map { |permission| MODE_TABLE[permission] }.join
   end
 
-   def find_time
+  def find_time
     today = Time.now
     half_year_ago = today - 24 * 60 * 60 * 180
 

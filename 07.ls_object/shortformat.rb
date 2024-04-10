@@ -2,7 +2,7 @@
 
 class ShortFormat
   NUMBER_OF_COLUMNS = 3
-  
+
   def initialize(filenames)
     @filenames = filenames
   end
