@@ -9,8 +9,8 @@ class Ls
 
   def initialize(options)
     @options = options
-    file = FilePath.new(options)
-    @filenames = file.create_filenames
+    # file = FilePath.new(options)
+    @filenames = create_filenames
   end
 
   def list_files
@@ -18,6 +18,13 @@ class Ls
   end
 
   private
+
+  def create_filenames
+    filenames = Dir.glob('*')
+    filenames = Dir.entries('.').sort if @options['a']
+    filenames = filenames.reverse if @options['r']
+    filenames
+  end
 
   def short_format
     create_arranged_filenames.each do |row|
