@@ -9,7 +9,6 @@ class Ls
 
   def initialize(options)
     @options = options
-    # file = FilePath.new(options)
     @filenames = create_filenames
   end
 
