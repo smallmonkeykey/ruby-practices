@@ -13,6 +13,8 @@ class ShortFormat
     end
   end
 
+  private
+
   def create_arranged_filenames
     arranged_filenames = []
     column_size = (@filenames.size - 1) / NUMBER_OF_COLUMNS + 1
