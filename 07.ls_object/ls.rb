@@ -11,7 +11,8 @@ class Ls
   end
 
   def list_files
-    @options['l'] ? LongFormat.new(@filenames).list_files : ShortFormat.new(@filenames).list_files
+    format_class = @options['l'] ? LongFormat : ShortFormat
+    format_class.new(filenames).list_files
   end
 
   private
