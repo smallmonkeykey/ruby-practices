@@ -21,7 +21,7 @@ class LongFormat
   def create_file_info(filename)
     file_info = FileInformation.new(filename)
 
-    print "#{file_info.format_type}#{file_info.format_mode} "
+    print "#{file_info.find_type}#{file_info.find_mode} "
     print "#{file_info.build_stat[:nlink].rjust(find_max_size[:nlink] + 1)} "
     print file_info.build_stat[:owner].ljust(find_max_size[:owner] + 1)
     print "#{file_info.build_stat[:group].rjust(find_max_size[:group] + 1)} "

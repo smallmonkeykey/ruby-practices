@@ -19,8 +19,8 @@ class FileInformation
 
   def build_stat
     {
-      type: format_type,
-      mode: format_mode,
+      type: find_type,
+      mode: find_mode,
       nlink: @stat.nlink.to_s,
       owner: Etc.getpwuid(@stat.uid).name,
       group: Etc.getgrgid(@stat.gid).name,
@@ -30,11 +30,11 @@ class FileInformation
     }
   end
 
-  def format_type
+  def find_type
     @stat.directory? ? 'd' : '-'
   end
 
-  def format_mode
+  def find_mode
     permissions = @stat.mode.to_s(8).slice(-3, 3).to_i.digits.reverse
     permissions.map { |permission| MODE_TABLE[permission] }.join
   end
