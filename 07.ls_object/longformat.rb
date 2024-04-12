@@ -12,7 +12,8 @@ class LongFormat
     puts "total #{total_block}"
 
     @filenames.each do |filename|
-      puts print_file_info(filename)
+      print_file_info(filename)
+      puts
     end
   end
 
