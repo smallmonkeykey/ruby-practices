@@ -12,13 +12,13 @@ class LongFormat
     puts "total #{total_block}"
 
     @filenames.each do |filename|
-      puts create_file_info(filename)
+      puts print_file_info(filename)
     end
   end
 
   private
 
-  def create_file_info(filename)
+  def print_file_info(filename)
     file_info = FileInformation.new(filename)
 
     print "#{file_info.find_type}#{file_info.find_mode} "

@@ -12,7 +12,7 @@ class Ls
 
   def list_files
     format_class = @options['l'] ? LongFormat : ShortFormat
-    format_class.new(filenames).list_files
+    format_class.new(@filenames).list_files
   end
 
   private
