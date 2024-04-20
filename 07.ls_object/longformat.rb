@@ -21,13 +21,14 @@ class LongFormat
 
   def print_file_info(filename)
     file_info = FileInformation.new(filename)
+    max_size_map = calc_max_size
 
     print "#{file_info.find_type}#{file_info.find_mode} "
-    print "#{file_info.build_stat[:nlink].rjust(find_max_size[:nlink] + 1)} "
-    print file_info.build_stat[:owner].ljust(find_max_size[:owner] + 1)
-    print "#{file_info.build_stat[:group].rjust(find_max_size[:group] + 1)} "
-    print file_info.build_stat[:filesize].rjust(find_max_size[:filesize] + 1)
-    print "#{file_info.build_stat[:time].rjust(find_max_size[:time] + 1)} "
+    print "#{file_info.build_stat[:nlink].rjust(max_size_map[:nlink] + 1)} "
+    print file_info.build_stat[:owner].ljust(max_size_map[:owner] + 1)
+    print "#{file_info.build_stat[:group].rjust(max_size_map[:group] + 1)} "
+    print file_info.build_stat[:filesize].rjust(max_size_map[:filesize] + 1)
+    print "#{file_info.build_stat[:time].rjust(max_size_map[:time] + 1)} "
     print file_info.build_stat[:filename]
   end
 
@@ -35,7 +36,7 @@ class LongFormat
     @filenames.map { |filename| File.stat(filename).blocks }.sum
   end
 
-  def find_max_size
+  def calc_max_size
     @file_infos = @filenames.map { |filename| FileInformation.new(filename)}
     {
       nlink: @file_infos.map {|file_info| file_info.build_stat[:nlink].size}.max,
