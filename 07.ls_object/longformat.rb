@@ -37,13 +37,13 @@ class LongFormat
   end
 
   def calc_max_size
-    @file_infos = @filenames.map { |filename| FileInformation.new(filename)}
+    @file_infos = @filenames.map { |filename| FileInformation.new(filename) }
     {
-      nlink: @file_infos.map {|file_info| file_info.build_stat[:nlink].size}.max,
-      owner: @file_infos.map {|file_info| file_info.build_stat[:owner].size}.max,
-      group: @file_infos.map {|file_info| file_info.build_stat[:group].size }.max,
-      filesize: @file_infos.map {|file_info| file_info.build_stat[:filesize].size }.max,
-      time: @file_infos.map {|file_info| file_info.build_stat[:time].size }.max
+      nlink: @file_infos.map { |file_info| file_info.build_stat[:nlink].size }.max,
+      owner: @file_infos.map { |file_info| file_info.build_stat[:owner].size }.max,
+      group: @file_infos.map { |file_info| file_info.build_stat[:group].size }.max,
+      filesize: @file_infos.map { |file_info| file_info.build_stat[:filesize].size }.max,
+      time: @file_infos.map { |file_info| file_info.build_stat[:time].size }.max
     }
   end
 end
