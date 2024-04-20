@@ -36,12 +36,13 @@ class LongFormat
   end
 
   def find_max_size
+    @file_infos = @filenames.map { |filename| FileInformation.new(filename)}
     {
-      nlink: @filenames.map { |filename| FileInformation.new(filename).build_stat[:nlink].size }.max,
-      owner: @filenames.map { |filename| FileInformation.new(filename).build_stat[:owner].size }.max,
-      group: @filenames.map { |filename| FileInformation.new(filename).build_stat[:group].size }.max,
-      filesize: @filenames.map { |filename| FileInformation.new(filename).build_stat[:filesize].size }.max,
-      time: @filenames.map { |filename| FileInformation.new(filename).build_stat[:time].size }.max
+      nlink: @file_infos.map {|file_info| file_info.build_stat[:nlink].size}.max,
+      owner: @file_infos.map {|file_info| file_info.build_stat[:owner].size}.max,
+      group: @file_infos.map {|file_info| file_info.build_stat[:group].size }.max,
+      filesize: @file_infos.map {|file_info| file_info.build_stat[:filesize].size }.max,
+      time: @file_infos.map {|file_info| file_info.build_stat[:time].size }.max
     }
   end
 end
