@@ -11,17 +11,18 @@ class LongFormat
   def list_files
     puts "total #{total_block}"
 
+    max_size_map = calc_max_size
+
     @filenames.each do |filename|
-      print_file_info(filename)
+      print_file_info(filename, max_size_map)
       puts
     end
   end
 
   private
 
-  def print_file_info(filename)
+  def print_file_info(filename, max_size_map)
     file_info = FileInformation.new(filename)
-    max_size_map = calc_max_size
 
     print "#{file_info.find_type}#{file_info.find_mode} "
     print "#{file_info.build_stat[:nlink].rjust(max_size_map[:nlink] + 1)} "
