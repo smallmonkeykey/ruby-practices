@@ -5,7 +5,7 @@ require_relative 'fileinfo'
 
 class LongFormat
   def initialize(filenames)
-    @file_infos = filenames.map { |filename| FileInformation.new(filename) } 
+    @file_infos = filenames.map { |filename| FileInformation.new(filename) }
   end
 
   def list_files
@@ -32,7 +32,7 @@ class LongFormat
   end
 
   def total_block
-    @file_infos.map { |file_info| file_info.calc_block}.sum
+    @file_infos.map(&:calc_block).sum
   end
 
   def calc_max_size
