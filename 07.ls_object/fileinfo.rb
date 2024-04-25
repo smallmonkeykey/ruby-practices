@@ -17,6 +17,10 @@ class FileInformation
     @stat = File.stat(filename)
   end
 
+  def calc_block
+    File.stat(@filename).blocks
+  end
+
   def build_stat
     {
       type: find_type,
